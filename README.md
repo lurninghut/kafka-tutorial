@@ -1,5 +1,5 @@
-##Kafka producer config
-###ack
+## Kafka producer config
+### ack
 The config is related to leader and followers. If acs=0 then 
 producer will not wait for any acknowledgement from server.
 ack=1 [default] means, leader will respond after writing to its own log 
