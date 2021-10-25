@@ -3,25 +3,25 @@ package com.lurninghut;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
-
 public class EventProducer {
-    public static void main(String[] args) {
+    private static final Logger log = LoggerFactory.getLogger(EventProducer.class);
+    public static void main(String[] args) throws IOException {
         String topicName = "actors";
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.serializer",
-                "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer",
-                "org.apache.kafka.common.serialization.StringSerializer");
-
+        props.load(new FileReader("producer.properties"));
         Producer<String, String> producer = new KafkaProducer
                 <>(props);
         producer.send(new ProducerRecord<>(topicName,
                 "actor-1", "amitabh"));
-        System.out.println("Message sent successfully");
+        producer.metrics().forEach((key, value) -> System.out.println(key.name() + " : " + value.metricValue()));
+        log.info("Message sent successfully");
         producer.close();
     }
 }
