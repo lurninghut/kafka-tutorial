@@ -1,4 +1,5 @@
 ## Kafka producer config
+[Kafka Internal Documentation Link](https://jaceklaskowski.gitbooks.io/apache-kafka/content/)
 ### ack
 The config is related to leader and followers.\
 If **acs=0** then 
