@@ -1,5 +1,6 @@
 package com.lurninghut;
 
+import com.lurninghut.contract.Movie;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -16,10 +17,11 @@ public class EventProducer {
         String topicName = "actors";
         Properties props = new Properties();
         props.load(new FileReader("producer.properties"));
-        Producer<String, String> producer = new KafkaProducer
+        Producer<String, Movie> producer = new KafkaProducer
                 <>(props);
+        Movie movie = Movie.newBuilder().setName("Kaliya").setUid("1").addActors(Movie.Actor.newBuilder().setId("1").setName("amitabh").build()).build();
         producer.send(new ProducerRecord<>(topicName,
-                "actor-1", "amitabh"));
+                movie.getUid(), movie));
         producer.metrics().forEach((key, value) -> System.out.println(key.name() + " : " + value.metricValue()));
         log.info("Message sent successfully");
         producer.close();

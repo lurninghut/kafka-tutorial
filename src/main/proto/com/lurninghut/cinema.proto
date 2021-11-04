@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package flutter.smf;
+
+option java_package = "com.lurninghut.contract";
+option java_multiple_files = true;
+
+message Movie {
+  string uid = 1;
+  string name = 2;
+  repeated Actor actors = 3;
+
+  message Actor {
+    string id = 1;
+    string name = 2;
+  }
+}
