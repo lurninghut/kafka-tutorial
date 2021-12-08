@@ -16,7 +16,7 @@ public class EventProducer {
     public static void main(String[] args) throws IOException {
         String topicName = "actors";
         Properties props = new Properties();
-        props.load(new FileReader("producer.properties"));
+        props.load(new FileReader("src/main/resources/producer.properties"));
         Producer<String, Movie> producer = new KafkaProducer
                 <>(props);
         Movie movie = Movie.newBuilder().setName("Kaliya").setUid("1").addActors(Movie.Actor.newBuilder().setId("1").setName("amitabh").build()).build();
